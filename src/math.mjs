@@ -16,3 +16,14 @@ export function clamp(value, min, max) {
   }
   return value < min ? min : value > max ? max : value;
 }
+
+export function mean(values) {
+  if (values.length === 0) {
+    throw new RangeError("mean: values must not be empty");
+  }
+  let sum = 0;
+  for (const value of values) {
+    sum += value;
+  }
+  return sum / values.length;
+}
