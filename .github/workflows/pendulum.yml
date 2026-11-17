@@ -43,7 +43,7 @@ env:
   PENDULUM_PUBLISH_TRANSCRIPTS: "false" # true: on a public repository the usage artifacts carry the agent's event stream and sessions readable by anyone signed in to GitHub; false seals them (docs/PRIVACY.md)
   PENDULUM_NOTIFY: "" # login#id: the id pins the account (setup writes it)
   PENDULUM_SETUP: ""
-  PENDULUM_INSTALL: auto # auto (from the lockfile), none, or your own command
+  PENDULUM_INSTALL: none # auto (from the lockfile), none, or your own command
   PENDULUM_VALIDATION: ""
   PENDULUM_BUDGET_COMMAND: ""
   PENDULUM_PROTECTED_PATHS: ""
