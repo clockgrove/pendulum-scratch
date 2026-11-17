@@ -45,3 +45,10 @@ It also exports `square(x)`, which returns `x` times `x`.
 import { square } from "./src/math.mjs";
 square(3); // 9
 ```
+
+It also exports `median(values)`, which returns the middle value of the sorted numbers, or the mean of the two middle values when the count is even. It throws a `RangeError` when `values` is empty.
+
+```js
+import { median } from "./src/math.mjs";
+median([3, 1, 2]); // 2
+```
