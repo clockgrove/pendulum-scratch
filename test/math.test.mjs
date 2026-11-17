@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { add, clamp, max, mean, median, multiply, square, subtract, sum } from "../src/math.mjs";
+import { add, clamp, max, mean, median, min, multiply, square, subtract, sum } from "../src/math.mjs";
 
 test("add", () => {
   assert.equal(add(2, 3), 5);
@@ -65,4 +65,12 @@ test("max", () => {
   assert.equal(max([4]), 4);
   assert.throws(() => max([]), RangeError);
   assert.throws(() => max([]), (err) => err.message.includes("empty"));
+});
+
+test("min", () => {
+  assert.equal(min([3, 9, 2]), 2);
+  assert.equal(min([-5, -1, -9]), -9);
+  assert.equal(min([4]), 4);
+  assert.throws(() => min([]), RangeError);
+  assert.throws(() => min([]), (err) => err.message.includes("empty"));
 });

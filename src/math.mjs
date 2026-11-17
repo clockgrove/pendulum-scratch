@@ -61,3 +61,16 @@ export function max(values) {
   }
   return largest;
 }
+
+export function min(values) {
+  if (values.length === 0) {
+    throw new RangeError("min: values must not be empty");
+  }
+  let smallest = values[0];
+  for (const value of values) {
+    if (value < smallest) {
+      smallest = value;
+    }
+  }
+  return smallest;
+}

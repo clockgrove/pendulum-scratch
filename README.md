@@ -59,3 +59,10 @@ It also exports `max(values)`, which returns the largest number in an array of n
 import { max } from "./src/math.mjs";
 max([3, 9, 2]); // 9
 ```
+
+It also exports `min(values)`, which returns the smallest number in an array. It throws a `RangeError` when `values` is empty.
+
+```js
+import { min } from "./src/math.mjs";
+min([3, 9, 2]); // 2
+```
