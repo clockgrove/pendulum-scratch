@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { add, clamp, mean, multiply, square, subtract, sum } from "../src/math.mjs";
+import { add, clamp, mean, median, multiply, square, subtract, sum } from "../src/math.mjs";
 
 test("add", () => {
   assert.equal(add(2, 3), 5);
@@ -46,4 +46,15 @@ test("square", () => {
   assert.equal(square(-4), 16);
   assert.equal(square(0), 0);
   assert.equal(square(1.5), 2.25);
+});
+
+test("median", () => {
+  assert.equal(median([3, 1, 2]), 2);
+  assert.equal(median([4, 1, 3, 2]), 2.5);
+  assert.equal(median([7]), 7);
+  const input = [3, 1, 2];
+  median(input);
+  assert.deepEqual(input, [3, 1, 2]);
+  assert.throws(() => median([]), RangeError);
+  assert.throws(() => median([]), (err) => err.message.includes("empty"));
 });
