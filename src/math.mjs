@@ -35,3 +35,7 @@ export function sum(values) {
   }
   return total;
 }
+
+export function square(x) {
+  return x * x;
+}
