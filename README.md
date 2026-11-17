@@ -17,3 +17,10 @@ It also exports `subtract(a, b)`, which returns `a` minus `b`.
 import { subtract } from "./src/math.mjs";
 subtract(10, 4); // 6
 ```
+
+It also exports `clamp(value, min, max)`, which returns `min` when `value < min`, `max` when `value > max`, and `value` otherwise. It throws a `RangeError` when `min > max`.
+
+```js
+import { clamp } from "./src/math.mjs";
+clamp(42, 0, 10); // 10
+```
