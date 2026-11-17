@@ -10,3 +10,10 @@ A throwaway repository for checking Clockgrove Pendulum releases end to end. Not
 import { multiply } from "./src/math.mjs";
 multiply(3, 4); // 12
 ```
+
+It also exports `subtract(a, b)`, which returns `a` minus `b`.
+
+```js
+import { subtract } from "./src/math.mjs";
+subtract(10, 4); // 6
+```
