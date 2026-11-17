@@ -31,3 +31,10 @@ It also exports `mean(values)`, which returns the arithmetic mean of an array of
 import { mean } from "./src/math.mjs";
 mean([2, 4, 6]); // 4
 ```
+
+It also exports `sum(values)`, which returns the total of an array of numbers. It returns `0` when `values` is empty.
+
+```js
+import { sum } from "./src/math.mjs";
+sum([1, 2, 3]); // 6
+```

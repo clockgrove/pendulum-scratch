@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { add, clamp, mean, multiply, subtract } from "../src/math.mjs";
+import { add, clamp, mean, multiply, subtract, sum } from "../src/math.mjs";
 
 test("add", () => {
   assert.equal(add(2, 3), 5);
@@ -32,4 +32,11 @@ test("mean", () => {
   assert.equal(mean([-1, 1]), 0);
   assert.equal(mean([1, 2]), 1.5);
   assert.throws(() => mean([]), (err) => err instanceof RangeError && err.message.includes("empty"));
+});
+
+test("sum", () => {
+  assert.equal(sum([1, 2, 3]), 6);
+  assert.equal(sum([]), 0);
+  assert.equal(sum([-4, 4]), 0);
+  assert.equal(sum([2.5, 2.5]), 5);
 });
