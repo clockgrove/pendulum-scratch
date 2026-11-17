@@ -48,3 +48,16 @@ export function median(values) {
   const mid = Math.floor(sorted.length / 2);
   return sorted.length % 2 === 0 ? (sorted[mid - 1] + sorted[mid]) / 2 : sorted[mid];
 }
+
+export function max(values) {
+  if (values.length === 0) {
+    throw new RangeError("max: values must not be empty");
+  }
+  let largest = values[0];
+  for (let i = 1; i < values.length; i++) {
+    if (values[i] > largest) {
+      largest = values[i];
+    }
+  }
+  return largest;
+}
