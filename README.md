@@ -38,3 +38,10 @@ It also exports `sum(values)`, which returns the total of an array of numbers. I
 import { sum } from "./src/math.mjs";
 sum([1, 2, 3]); // 6
 ```
+
+It also exports `square(x)`, which returns `x` times `x`.
+
+```js
+import { square } from "./src/math.mjs";
+square(3); // 9
+```
