@@ -52,3 +52,10 @@ It also exports `median(values)`, which returns the middle value of the sorted n
 import { median } from "./src/math.mjs";
 median([3, 1, 2]); // 2
 ```
+
+It also exports `max(values)`, which returns the largest number in an array of numbers. It throws a `RangeError` when `values` is empty.
+
+```js
+import { max } from "./src/math.mjs";
+max([3, 9, 2]); // 9
+```
