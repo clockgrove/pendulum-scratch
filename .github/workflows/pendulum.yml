@@ -40,6 +40,7 @@ env:
   PENDULUM_MAX_USD: 5
   PENDULUM_TIMEOUT_MINUTES: 240 # under 360 on hosted runners; mirrored in timeout-minutes below
   PENDULUM_AUTO_MERGE: "true"
+  PENDULUM_PUBLISH_TRANSCRIPTS: "false" # true: on a public repository the usage artifacts carry the agent's event stream and sessions readable by anyone signed in to GitHub; false seals them (docs/PRIVACY.md)
   PENDULUM_NOTIFY: "" # login#id: the id pins the account (setup writes it)
   PENDULUM_SETUP: ""
   PENDULUM_INSTALL: auto # auto (from the lockfile), none, or your own command
@@ -81,7 +82,7 @@ jobs:
       wake_at: "${{ steps.f.outputs.wake_at }}"
       wake_kind: "${{ steps.f.outputs.wake_kind }}"
     steps:
-      - uses: clockgrove/pendulum@0c95f250677ebcae680433f3138c2b94690f47a5
+      - uses: clockgrove/pendulum@97cba0b031b08a2360d3688176b2412b764e74bd
         id: f
         with: { mode: dispatch, issue: "${{ inputs.issue }}", app_id: "${{ secrets.PENDULUM_APP_ID }}", app_private_key: "${{ secrets.PENDULUM_APP_PRIVATE_KEY }}", vars: "${{ toJSON(vars) }}" }
   queue-watch:
@@ -101,7 +102,7 @@ jobs:
     permissions: { contents: read, actions: write } # actions: write only for the dispatcher tick
     concurrency: { group: pendulum-queue-watch, cancel-in-progress: false }
     steps:
-      - uses: clockgrove/pendulum@0c95f250677ebcae680433f3138c2b94690f47a5
+      - uses: clockgrove/pendulum@97cba0b031b08a2360d3688176b2412b764e74bd
         id: w
         with: { mode: watch, pr: "${{ needs.dispatch.outputs.queue_watch }}", app_id: "${{ secrets.PENDULUM_APP_ID }}", app_private_key: "${{ secrets.PENDULUM_APP_PRIVATE_KEY }}", vars: "${{ toJSON(vars) }}" }
       - name: Dispatch tick (a watched PR left the queue or stalled there, or the watch's time is up)
@@ -145,13 +146,13 @@ jobs:
     permissions: { contents: read, issues: write, actions: write } # actions: write for the tick at the end and triage's rerun of failed CI jobs
     concurrency: { group: "pendulum-${{ matrix.issue }}", cancel-in-progress: false } # one job per issue; a repeat waits, siblings keep running
     steps:
-      - uses: clockgrove/pendulum@0c95f250677ebcae680433f3138c2b94690f47a5
+      - uses: clockgrove/pendulum@97cba0b031b08a2360d3688176b2412b764e74bd
         id: account # several accounts (PENDULUM_ACCOUNTS): the one this stage runs on, so the step below gets only its secrets
         if: env.PENDULUM_ACCOUNTS != ''
         with: { mode: account, rendered_accounts: "", issue: "${{ matrix.issue }}", harness: "${{ inputs.harness }}", app_id: "${{ secrets.PENDULUM_APP_ID }}", app_private_key: "${{ secrets.PENDULUM_APP_PRIVATE_KEY }}", vars: "${{ toJSON(vars) }}" }
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with: { fetch-depth: 0, persist-credentials: false }
-      - uses: clockgrove/pendulum@0c95f250677ebcae680433f3138c2b94690f47a5
+      - uses: clockgrove/pendulum@97cba0b031b08a2360d3688176b2412b764e74bd
         id: f
         with:
           vars: ${{ toJSON(vars) }} # the repository's variables: each PENDULUM_<NAME> one sets that setting over the env block (docs/INSTALL.md, Settings in layers)
@@ -169,7 +170,7 @@ jobs:
           worker_secret_values: ${{ secrets.PENDULUM_WORKER_SECRET_VALUES }} # optional, with PENDULUM_WORKER_SECRETS in the env block: SOURCE=value lines for the worker's shell only; a dedicated key with a gateway-side budget (docs/PLAN.md, Worker secrets)
           # anthropic_oidc_exchange_url: ${{ vars.ANTHROPIC_OIDC_EXCHANGE_URL }} # Claude federation (with id-token: write above)
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }} # credential: plan only; your own repository only
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with: { name: "pendulum-usage-${{ matrix.issue }}", path: "${{ steps.f.outputs.usage_dir }}", retention-days: 90 }
       - name: Dispatch tick (this worker finished; a conflicting PR fires no review job)
@@ -186,13 +187,13 @@ jobs:
     permissions: { contents: read, issues: write, actions: write } # actions: write here, for the tick below and triage's rerun of failed CI jobs
     concurrency: { group: "pendulum-review-${{ github.event.pull_request.number }}", cancel-in-progress: false }
     steps:
-      - uses: clockgrove/pendulum@0c95f250677ebcae680433f3138c2b94690f47a5
+      - uses: clockgrove/pendulum@97cba0b031b08a2360d3688176b2412b764e74bd
         id: account # several accounts (PENDULUM_ACCOUNTS): the one this stage runs on, so the step below gets only its secrets
         if: env.PENDULUM_ACCOUNTS != ''
         with: { mode: account, rendered_accounts: "", harness: "${{ inputs.harness }}", app_id: "${{ secrets.PENDULUM_APP_ID }}", app_private_key: "${{ secrets.PENDULUM_APP_PRIVATE_KEY }}", vars: "${{ toJSON(vars) }}" }
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with: { fetch-depth: 0, persist-credentials: false }
-      - uses: clockgrove/pendulum@0c95f250677ebcae680433f3138c2b94690f47a5
+      - uses: clockgrove/pendulum@97cba0b031b08a2360d3688176b2412b764e74bd
         id: f
         with:
           vars: ${{ toJSON(vars) }}
@@ -210,7 +211,7 @@ jobs:
           worker_secret_values: ${{ secrets.PENDULUM_WORKER_SECRET_VALUES }} # with PENDULUM_WORKER_SECRETS: the fix and answer passes only, never the reviewer
           # anthropic_oidc_exchange_url: ${{ vars.ANTHROPIC_OIDC_EXCHANGE_URL }}
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always() && steps.f.outputs.issue_number != ''
         with: { name: "pendulum-usage-${{ steps.f.outputs.issue_number }}-review", path: "${{ steps.f.outputs.usage_dir }}", retention-days: 90, overwrite: true } # one name per review run; the bench lists it exactly
       - name: Dispatch tick (a worker slot freed)
