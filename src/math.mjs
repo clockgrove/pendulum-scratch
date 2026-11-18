@@ -74,3 +74,11 @@ export function min(values) {
   }
   return smallest;
 }
+
+export function product(values) {
+  let result = 1;
+  for (const value of values) {
+    result *= value;
+  }
+  return result;
+}
