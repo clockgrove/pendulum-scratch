@@ -104,3 +104,14 @@ export function cube(x) {
 export function isEven(n) {
   return n % 2 === 0;
 }
+
+export function factorial(n) {
+  if (!Number.isInteger(n) || n < 0) {
+    throw new RangeError("factorial: n must be a non-negative integer");
+  }
+  let result = 1;
+  for (let i = 2; i <= n; i++) {
+    result *= i;
+  }
+  return result;
+}
