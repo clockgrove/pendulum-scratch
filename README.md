@@ -101,3 +101,10 @@ It also exports `cube(x)`, which returns `x * x * x`.
 import { cube } from "./src/math.mjs";
 cube(3); // 27
 ```
+
+It also exports `isEven(n)`, which returns `true` when `n % 2 === 0` and `false` otherwise.
+
+```js
+import { isEven } from "./src/math.mjs";
+isEven(4); // true
+```

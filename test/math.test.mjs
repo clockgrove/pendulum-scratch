@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { abs, add, clamp, cube, lerp, max, mean, median, min, multiply, product, sign, square, subtract, sum } from "../src/math.mjs";
+import { abs, add, clamp, cube, isEven, lerp, max, mean, median, min, multiply, product, sign, square, subtract, sum } from "../src/math.mjs";
 
 test("add", () => {
   assert.equal(add(2, 3), 5);
@@ -110,4 +110,12 @@ test("cube", () => {
   assert.equal(cube(-2), -8);
   assert.equal(cube(0), 0);
   assert.equal(cube(0.5), 0.125);
+});
+
+test("isEven", () => {
+  assert.equal(isEven(4), true);
+  assert.equal(isEven(7), false);
+  assert.equal(isEven(0), true);
+  assert.equal(isEven(-2), true);
+  assert.equal(isEven(-3), false);
 });
