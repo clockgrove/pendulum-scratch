@@ -92,3 +92,7 @@ export function sign(x) {
   if (x < 0) return -1;
   return x === 0 ? 0 : NaN;
 }
+
+export function lerp(a, b, t) {
+  return a + (b - a) * t;
+}

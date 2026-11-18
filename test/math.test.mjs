@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { abs, add, clamp, max, mean, median, min, multiply, product, sign, square, subtract, sum } from "../src/math.mjs";
+import { abs, add, clamp, lerp, max, mean, median, min, multiply, product, sign, square, subtract, sum } from "../src/math.mjs";
 
 test("add", () => {
   assert.equal(add(2, 3), 5);
@@ -96,4 +96,11 @@ test("sign", () => {
   assert.equal(sign(0.5), 1);
   assert.ok(Number.isNaN(sign(NaN)));
   assert.ok(Number.isNaN(sign(undefined)));
+});
+
+test("lerp", () => {
+  assert.equal(lerp(0, 10, 0.5), 5);
+  assert.equal(lerp(2, 4, 0), 2);
+  assert.equal(lerp(2, 4, 1), 4);
+  assert.equal(lerp(10, 0, 0.25), 7.5);
 });
