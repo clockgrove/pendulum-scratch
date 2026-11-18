@@ -81,7 +81,7 @@ import { abs } from "./src/math.mjs";
 abs(-5); // 5
 ```
 
-It also exports `sign(x)`, which returns `1` when `x` is greater than zero, `-1` when it is less than zero, and `0` when it is zero.
+It also exports `sign(x)`, which returns `1` when `x` is greater than zero, `-1` when it is less than zero, and `0` when it is zero. For `NaN` or any input that is not a number it returns `NaN`, like `abs`.
 
 ```js
 import { sign } from "./src/math.mjs";

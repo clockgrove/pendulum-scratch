@@ -94,4 +94,6 @@ test("sign", () => {
   assert.equal(sign(-3), -1);
   assert.equal(sign(0), 0);
   assert.equal(sign(0.5), 1);
+  assert.ok(Number.isNaN(sign(NaN)));
+  assert.ok(Number.isNaN(sign(undefined)));
 });

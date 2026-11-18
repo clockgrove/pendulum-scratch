@@ -88,5 +88,7 @@ export function abs(x) {
 }
 
 export function sign(x) {
-  return x > 0 ? 1 : x < 0 ? -1 : 0;
+  if (x > 0) return 1;
+  if (x < 0) return -1;
+  return x === 0 ? 0 : NaN;
 }
