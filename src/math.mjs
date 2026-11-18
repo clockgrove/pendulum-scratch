@@ -100,3 +100,7 @@ export function lerp(a, b, t) {
 export function cube(x) {
   return x * x * x;
 }
+
+export function isEven(n) {
+  return n % 2 === 0;
+}
