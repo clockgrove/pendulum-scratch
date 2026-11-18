@@ -73,3 +73,10 @@ It also exports `product(values)`, which returns the product of an array of numb
 import { product } from "./src/math.mjs";
 product([2, 3, 4]); // 24
 ```
+
+It also exports `abs(x)`, which returns `x` when it is zero or positive and `-x` when it is negative.
+
+```js
+import { abs } from "./src/math.mjs";
+abs(-5); // 5
+```
