@@ -94,3 +94,10 @@ It also exports `lerp(a, b, t)`, which returns `a + (b - a) * t`, the point `t` 
 import { lerp } from "./src/math.mjs";
 lerp(0, 10, 0.5); // 5
 ```
+
+It also exports `cube(x)`, which returns `x * x * x`.
+
+```js
+import { cube } from "./src/math.mjs";
+cube(3); // 27
+```

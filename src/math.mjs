@@ -96,3 +96,7 @@ export function sign(x) {
 export function lerp(a, b, t) {
   return a + (b - a) * t;
 }
+
+export function cube(x) {
+  return x * x * x;
+}
