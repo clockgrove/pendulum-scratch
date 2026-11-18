@@ -66,3 +66,10 @@ It also exports `min(values)`, which returns the smallest number in an array. It
 import { min } from "./src/math.mjs";
 min([3, 9, 2]); // 2
 ```
+
+It also exports `product(values)`, which returns the product of an array of numbers. It returns `1` when `values` is empty.
+
+```js
+import { product } from "./src/math.mjs";
+product([2, 3, 4]); // 24
+```
