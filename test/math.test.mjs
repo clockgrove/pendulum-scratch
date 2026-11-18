@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { abs, add, clamp, cube, factorial, isEven, lerp, max, mean, median, min, multiply, product, sign, square, subtract, sum } from "../src/math.mjs";
+import { abs, add, clamp, cube, factorial, gcd, isEven, lerp, max, mean, median, min, multiply, product, sign, square, subtract, sum } from "../src/math.mjs";
 
 test("add", () => {
   assert.equal(add(2, 3), 5);
@@ -127,4 +127,12 @@ test("factorial", () => {
   assert.equal(factorial(10), 3628800);
   assert.throws(() => factorial(-1), RangeError);
   assert.throws(() => factorial(2.5), RangeError);
+});
+
+test("gcd", () => {
+  assert.equal(gcd(12, 18), 6);
+  assert.equal(gcd(7, 5), 1);
+  assert.equal(gcd(0, 9), 9);
+  assert.equal(gcd(-12, 18), 6);
+  assert.equal(gcd(0, 0), 0);
 });

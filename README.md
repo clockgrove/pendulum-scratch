@@ -115,3 +115,10 @@ It also exports `factorial(n)`, which returns `n!`, the product `n * (n - 1) * .
 import { factorial } from "./src/math.mjs";
 factorial(5); // 120
 ```
+
+It also exports `gcd(a, b)`, which returns the greatest common divisor of the integers `a` and `b` as a non-negative number. The sign of either argument does not matter, and `gcd(0, 0)` is `0`.
+
+```js
+import { gcd } from "./src/math.mjs";
+gcd(12, 18); // 6
+```
