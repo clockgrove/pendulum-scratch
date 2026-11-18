@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { abs, add, clamp, cube, factorial, gcd, isEven, lerp, max, mean, median, min, multiply, product, sign, square, subtract, sum } from "../src/math.mjs";
+import { abs, add, clamp, cube, factorial, gcd, isEven, lcm, lerp, max, mean, median, min, multiply, product, sign, square, subtract, sum } from "../src/math.mjs";
 
 test("add", () => {
   assert.equal(add(2, 3), 5);
@@ -135,4 +135,15 @@ test("gcd", () => {
   assert.equal(gcd(0, 9), 9);
   assert.equal(gcd(-12, 18), 6);
   assert.equal(gcd(0, 0), 0);
+});
+
+test("lcm", () => {
+  assert.equal(lcm(4, 6), 12);
+  assert.equal(lcm(-4, 6), 12);
+  assert.equal(lcm(4, -6), 12);
+  assert.equal(lcm(0, 5), 0);
+  assert.equal(lcm(5, 0), 0);
+  assert.equal(lcm(7, 1), 7);
+  assert.throws(() => lcm(2.5, 4), RangeError);
+  assert.throws(() => lcm(4, 2.5), RangeError);
 });
