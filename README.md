@@ -87,3 +87,10 @@ It also exports `sign(x)`, which returns `1` when `x` is greater than zero, `-1`
 import { sign } from "./src/math.mjs";
 sign(-3); // -1
 ```
+
+It also exports `lerp(a, b, t)`, which returns `a + (b - a) * t`, the point `t` of the way from `a` to `b`.
+
+```js
+import { lerp } from "./src/math.mjs";
+lerp(0, 10, 0.5); // 5
+```
