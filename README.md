@@ -122,3 +122,10 @@ It also exports `gcd(a, b)`, which returns the greatest common divisor of the in
 import { gcd } from "./src/math.mjs";
 gcd(12, 18); // 6
 ```
+
+It also exports `lcm(a, b)`, which returns the least common multiple of the integers `a` and `b` as a non-negative number. The sign of either argument does not matter, and it returns `0` when either argument is `0`. It throws a `RangeError` when `a` or `b` is not an integer.
+
+```js
+import { lcm } from "./src/math.mjs";
+lcm(4, 6); // 12
+```

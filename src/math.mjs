@@ -124,3 +124,13 @@ export function gcd(a, b) {
   }
   return a;
 }
+
+export function lcm(a, b) {
+  if (!Number.isInteger(a) || !Number.isInteger(b)) {
+    throw new RangeError("lcm: a and b must be integers");
+  }
+  if (a === 0 || b === 0) {
+    return 0;
+  }
+  return Math.abs((a / gcd(a, b)) * b);
+}
