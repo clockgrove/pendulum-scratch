@@ -80,3 +80,10 @@ It also exports `abs(x)`, which returns `x` when it is zero or positive and `-x`
 import { abs } from "./src/math.mjs";
 abs(-5); // 5
 ```
+
+It also exports `sign(x)`, which returns `1` when `x` is greater than zero, `-1` when it is less than zero, and `0` when it is zero.
+
+```js
+import { sign } from "./src/math.mjs";
+sign(-3); // -1
+```

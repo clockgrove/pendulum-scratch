@@ -86,3 +86,7 @@ export function product(values) {
 export function abs(x) {
   return x < 0 ? -x : x;
 }
+
+export function sign(x) {
+  return x > 0 ? 1 : x < 0 ? -1 : 0;
+}
