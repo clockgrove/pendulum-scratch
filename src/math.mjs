@@ -82,3 +82,7 @@ export function product(values) {
   }
   return result;
 }
+
+export function abs(x) {
+  return x < 0 ? -x : x;
+}
