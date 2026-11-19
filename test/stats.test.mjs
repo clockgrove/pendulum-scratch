@@ -1,0 +1,49 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
+
+const script = fileURLToPath(new URL("../src/stats.mjs", import.meta.url));
+
+function run(input) {
+  return spawnSync(process.execPath, [script], { input, encoding: "utf8" });
+}
+
+function ok(input) {
+  const result = run(input);
+  assert.equal(result.status, 0, result.stderr);
+  return JSON.parse(result.stdout);
+}
+
+test("mixed whitespace input", () => {
+  const result = run("9\n-1\t3  5\n");
+  assert.equal(result.status, 0);
+  assert.equal(result.stdout, '{"count":4,"mean":4,"median":4}\n');
+});
+
+test("odd count", () => {
+  assert.deepEqual(ok("3 1 2"), { count: 3, mean: 2, median: 2 });
+});
+
+test("even count", () => {
+  assert.deepEqual(ok("1 2 3 10"), { count: 4, mean: 4, median: 2.5 });
+});
+
+test("signed, fractional and scientific numbers", () => {
+  assert.deepEqual(ok("-1.5 +2.5 .5 1e1"), { count: 4, mean: 2.875, median: 1.5 });
+});
+
+test("large values stay finite", () => {
+  const result = ok("1e308 1e308");
+  assert.equal(result.mean, 1e308);
+  assert.equal(result.median, 1e308);
+});
+
+for (const input of ["", " \n\t ", "3x", "1 abc", "1e999", "Infinity", "NaN", "0x10"]) {
+  test(`rejects ${JSON.stringify(input)}`, () => {
+    const result = run(input);
+    assert.notEqual(result.status, 0);
+    assert.equal(result.stdout, "");
+    assert.notEqual(result.stderr, "");
+  });
+}

@@ -129,3 +129,16 @@ It also exports `lcm(a, b)`, which returns the least common multiple of the inte
 import { lcm } from "./src/math.mjs";
 lcm(4, 6); // 12
 ```
+
+## Stats command
+
+`node src/stats.mjs` reads numbers from standard input and prints one JSON object with their `count`, `mean` and `median`.
+
+```sh
+printf '9\n-1 3 5\n' | node src/stats.mjs
+# {"count":4,"mean":4,"median":4}
+```
+
+Numbers are separated by whitespace (spaces, tabs or newlines). Each has an optional sign, digits with an optional fraction, and an optional exponent, such as `-1.5`, `.5` or `1e3`. Hex, `Infinity`, `NaN` and trailing letters are not accepted.
+
+On invalid input the command prints one message on standard error, prints nothing on standard output, and exits with status 1. This covers empty or whitespace-only input, malformed numbers, values that are not finite (such as `1e999`), and results that are not finite.
