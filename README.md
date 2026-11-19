@@ -139,6 +139,13 @@ printf '9\n-1 3 5\n' | node src/stats.mjs
 # {"count":4,"mean":4,"median":4}
 ```
 
+`node src/stats.mjs --help` prints a usage line on standard output and exits with status 0 without reading standard input.
+
+```sh
+node src/stats.mjs --help
+# Usage: node src/stats.mjs [--help] < numbers.txt
+```
+
 Numbers are separated by whitespace (spaces, tabs or newlines). Each has an optional sign, digits with an optional fraction, and an optional exponent, such as `-1.5`, `.5` or `1e3`. Hex, `Infinity`, `NaN` and trailing letters are not accepted.
 
 Large finite values are handled even when their sum would overflow:
