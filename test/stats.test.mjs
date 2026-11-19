@@ -39,11 +39,22 @@ test("large values stay finite", () => {
   assert.equal(result.median, 1e308);
 });
 
-for (const input of ["", " \n\t ", "3x", "1 abc", "1e999", "Infinity", "NaN", "0x10"]) {
+const invalid = [
+  ["", /^stats: no numbers on standard input$/m],
+  [" \n\t ", /^stats: no numbers on standard input$/m],
+  ["3x", /^stats: malformed number: 3x$/m],
+  ["1 abc", /^stats: malformed number: abc$/m],
+  ["Infinity", /^stats: malformed number: Infinity$/m],
+  ["NaN", /^stats: malformed number: NaN$/m],
+  ["0x10", /^stats: malformed number: 0x10$/m],
+  ["1e999", /^stats: value is not finite: 1e999$/m],
+];
+
+for (const [input, message] of invalid) {
   test(`rejects ${JSON.stringify(input)}`, () => {
     const result = run(input);
-    assert.notEqual(result.status, 0);
+    assert.equal(result.status, 1);
     assert.equal(result.stdout, "");
-    assert.notEqual(result.stderr, "");
+    assert.match(result.stderr, message);
   });
 }
