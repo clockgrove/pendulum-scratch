@@ -141,4 +141,11 @@ printf '9\n-1 3 5\n' | node src/stats.mjs
 
 Numbers are separated by whitespace (spaces, tabs or newlines). Each has an optional sign, digits with an optional fraction, and an optional exponent, such as `-1.5`, `.5` or `1e3`. Hex, `Infinity`, `NaN` and trailing letters are not accepted.
 
+Large finite values are handled even when their sum would overflow:
+
+```sh
+printf '1.7976931348623157e308 1.7976931348623157e308 1.7976931348623157e308\n' | node src/stats.mjs
+# {"count":3,"mean":1.7976931348623157e+308,"median":1.7976931348623157e+308}
+```
+
 On invalid input the command prints one message on standard error, prints nothing on standard output, and exits with status 1. This covers empty or whitespace-only input, malformed numbers, values that are not finite (such as `1e999`), and results that are not finite.

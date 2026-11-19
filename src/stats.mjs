@@ -24,7 +24,10 @@ function compute(values) {
   const count = values.length;
   let m = mean(values);
   if (!Number.isFinite(m)) {
-    m = values.reduce((total, x) => total + x / count, 0);
+    // Dividing by the largest magnitude keeps each term in [-1, 1], so the
+    // sum cannot overflow and the scaled-back result is at most that magnitude.
+    const scale = values.reduce((largest, x) => Math.max(largest, Math.abs(x)), 0);
+    m = (values.reduce((total, x) => total + x / scale, 0) / count) * scale;
   }
   let med = median(values);
   if (!Number.isFinite(med)) {

@@ -39,6 +39,28 @@ test("large values stay finite", () => {
   assert.equal(result.median, 1e308);
 });
 
+const MAX = "1.7976931348623157e308";
+
+test("three largest finite values stay finite", () => {
+  assert.deepEqual(ok(`${MAX} ${MAX} ${MAX}`), {
+    count: 3,
+    mean: Number.MAX_VALUE,
+    median: Number.MAX_VALUE,
+  });
+});
+
+test("three most negative finite values stay finite", () => {
+  assert.deepEqual(ok(`-${MAX} -${MAX} -${MAX}`), {
+    count: 3,
+    mean: -Number.MAX_VALUE,
+    median: -Number.MAX_VALUE,
+  });
+});
+
+test("largest finite values of both signs average to zero", () => {
+  assert.deepEqual(ok(`${MAX} ${MAX} -${MAX} -${MAX}`), { count: 4, mean: 0, median: 0 });
+});
+
 const invalid = [
   ["", /^stats: no numbers on standard input$/m],
   [" \n\t ", /^stats: no numbers on standard input$/m],
