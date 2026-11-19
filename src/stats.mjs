@@ -41,10 +41,16 @@ function compute(values) {
   return { count, mean: m, median: med };
 }
 
-try {
-  const output = compute(parse(readFileSync(0, "utf8")));
-  process.stdout.write(JSON.stringify(output) + "\n");
-} catch (error) {
-  process.stderr.write(error.message + "\n");
-  process.exitCode = 1;
+const USAGE = "Usage: node src/stats.mjs [--help] < numbers.txt\n";
+
+if (process.argv.slice(2).includes("--help")) {
+  process.stdout.write(USAGE);
+} else {
+  try {
+    const output = compute(parse(readFileSync(0, "utf8")));
+    process.stdout.write(JSON.stringify(output) + "\n");
+  } catch (error) {
+    process.stderr.write(error.message + "\n");
+    process.exitCode = 1;
+  }
 }

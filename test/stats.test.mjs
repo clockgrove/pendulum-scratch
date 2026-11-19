@@ -15,6 +15,16 @@ function ok(input) {
   return JSON.parse(result.stdout);
 }
 
+test("--help prints usage", () => {
+  // NODE_USE_ENV_PROXY makes Node print an experimental-feature warning on
+  // stderr; drop it so the assertion sees only the command's own output.
+  const env = { ...process.env, NODE_USE_ENV_PROXY: undefined };
+  const result = spawnSync(process.execPath, [script, "--help"], { encoding: "utf8", env });
+  assert.equal(result.status, 0);
+  assert.equal(result.stdout, "Usage: node src/stats.mjs [--help] < numbers.txt\n");
+  assert.equal(result.stderr, "");
+});
+
 test("mixed whitespace input", () => {
   const result = run("9\n-1\t3  5\n");
   assert.equal(result.status, 0);
