@@ -75,6 +75,13 @@ export function min(values) {
   return smallest;
 }
 
+export function range(values) {
+  if (values.length === 0) {
+    throw new RangeError("range: values must not be empty");
+  }
+  return max(values) - min(values);
+}
+
 export function product(values) {
   let result = 1;
   for (const value of values) {

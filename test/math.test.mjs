@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { abs, add, clamp, cube, factorial, gcd, isEven, isOdd, lcm, lerp, max, mean, median, min, multiply, product, sign, square, subtract, sum } from "../src/math.mjs";
+import { abs, add, clamp, cube, factorial, gcd, isEven, isOdd, lcm, lerp, max, mean, median, min, multiply, product, range, sign, square, subtract, sum } from "../src/math.mjs";
 
 test("add", () => {
   assert.equal(add(2, 3), 5);
@@ -73,6 +73,13 @@ test("min", () => {
   assert.equal(min([4]), 4);
   assert.throws(() => min([]), RangeError);
   assert.throws(() => min([]), (err) => err.message.includes("empty"));
+});
+
+test("range", () => {
+  assert.equal(range([3, 9, 2]), 7);
+  assert.equal(range([5]), 0);
+  assert.equal(range([-4, 2]), 6);
+  assert.throws(() => range([]), { name: "RangeError", message: "range: values must not be empty" });
 });
 
 test("product", () => {
