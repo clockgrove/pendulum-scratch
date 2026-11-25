@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { abs, add, clamp, cube, factorial, gcd, isEven, isOdd, isPrime, lcm, lerp, max, mean, median, min, multiply, product, range, sign, square, subtract, sum } from "../src/math.mjs";
+import { abs, add, clamp, cube, digitSum, factorial, gcd, isEven, isOdd, isPrime, lcm, lerp, max, mean, median, min, multiply, product, range, sign, square, subtract, sum } from "../src/math.mjs";
 
 test("add", () => {
   assert.equal(add(2, 3), 5);
@@ -182,4 +182,12 @@ test("isPrime", () => {
   assert.equal(isPrime(-7), false);
   assert.equal(isPrime(91), false);
   assert.throws(() => isPrime(2.5), { name: "TypeError", message: "isPrime: n must be an integer" });
+});
+
+test("digitSum", () => {
+  assert.equal(digitSum(0), 0);
+  assert.equal(digitSum(7), 7);
+  assert.equal(digitSum(1234), 10);
+  assert.equal(digitSum(-56), 11);
+  assert.throws(() => digitSum(1.5), { name: "TypeError", message: "digitSum: n must be an integer" });
 });
