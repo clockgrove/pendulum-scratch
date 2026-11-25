@@ -67,6 +67,13 @@ import { min } from "./src/math.mjs";
 min([3, 9, 2]); // 2
 ```
 
+It also exports `range(values)`, which returns the largest number in an array minus the smallest. It throws a `RangeError` when `values` is empty.
+
+```js
+import { range } from "./src/math.mjs";
+range([3, 9, 2]); // 7
+```
+
 It also exports `product(values)`, which returns the product of an array of numbers. It returns `1` when `values` is empty.
 
 ```js
