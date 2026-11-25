@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { abs, add, clamp, cube, factorial, gcd, isEven, isOdd, lcm, lerp, max, mean, median, min, multiply, product, range, sign, square, subtract, sum } from "../src/math.mjs";
+import { abs, add, clamp, cube, factorial, gcd, isEven, isOdd, isPrime, lcm, lerp, max, mean, median, min, multiply, product, range, sign, square, subtract, sum } from "../src/math.mjs";
 
 test("add", () => {
   assert.equal(add(2, 3), 5);
@@ -171,4 +171,15 @@ test("lcm", () => {
   assert.equal(lcm(7, 1), 7);
   assert.throws(() => lcm(2.5, 4), RangeError);
   assert.throws(() => lcm(4, 2.5), RangeError);
+});
+
+test("isPrime", () => {
+  assert.equal(isPrime(2), true);
+  assert.equal(isPrime(13), true);
+  assert.equal(isPrime(97), true);
+  assert.equal(isPrime(1), false);
+  assert.equal(isPrime(0), false);
+  assert.equal(isPrime(-7), false);
+  assert.equal(isPrime(91), false);
+  assert.throws(() => isPrime(2.5), { name: "TypeError", message: "isPrime: n must be an integer" });
 });
