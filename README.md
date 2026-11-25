@@ -158,6 +158,13 @@ import { digitSum } from "./src/math.mjs";
 digitSum(1234); // 10
 ```
 
+It also exports `fibonacci(n)`, which returns the `n`th Fibonacci number, with `fibonacci(0)` = `0` and `fibonacci(1)` = `1`. It throws a `RangeError` when `n` is negative or not an integer.
+
+```js
+import { fibonacci } from "./src/math.mjs";
+fibonacci(10); // 55
+```
+
 ## Stats command
 
 `node src/stats.mjs` reads numbers from standard input and prints one JSON object with their `count`, `mean`, `median`, `min` and `max`.
