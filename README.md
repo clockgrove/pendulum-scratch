@@ -144,6 +144,13 @@ import { lcm } from "./src/math.mjs";
 lcm(4, 6); // 12
 ```
 
+It also exports `isPrime(n)`, which returns `true` when the integer `n` is a prime and `false` otherwise, including for `n` below `2`. It throws a `TypeError` when `n` is not an integer.
+
+```js
+import { isPrime } from "./src/math.mjs";
+isPrime(13); // true
+```
+
 ## Stats command
 
 `node src/stats.mjs` reads numbers from standard input and prints one JSON object with their `count`, `mean`, `median`, `min` and `max`.
