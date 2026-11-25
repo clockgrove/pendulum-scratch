@@ -109,6 +109,13 @@ import { isEven } from "./src/math.mjs";
 isEven(4); // true
 ```
 
+It also exports `isOdd(n)`, which returns `true` when `n` is an odd integer and `false` otherwise.
+
+```js
+import { isOdd } from "./src/math.mjs";
+isOdd(3); // true
+```
+
 It also exports `factorial(n)`, which returns `n!`, the product `n * (n - 1) * ... * 1`, and `1` when `n` is `0`. It throws a `RangeError` when `n` is negative or not an integer.
 
 ```js
