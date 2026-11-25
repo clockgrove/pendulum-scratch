@@ -28,25 +28,35 @@ test("--help prints usage", () => {
 test("mixed whitespace input", () => {
   const result = run("9\n-1\t3  5\n");
   assert.equal(result.status, 0);
-  assert.equal(result.stdout, '{"count":4,"mean":4,"median":4}\n');
+  assert.equal(result.stdout, '{"count":4,"mean":4,"median":4,"min":-1,"max":9}\n');
+});
+
+test("prints min and max after count, mean and median", () => {
+  const env = { ...process.env, NODE_USE_ENV_PROXY: undefined };
+  const result = spawnSync(process.execPath, [script], { input: "9\n-1 3 5\n", encoding: "utf8", env });
+  assert.equal(result.status, 0);
+  assert.equal(result.stdout, '{"count":4,"mean":4,"median":4,"min":-1,"max":9}\n');
+  assert.equal(result.stderr, "");
 });
 
 test("odd count", () => {
-  assert.deepEqual(ok("3 1 2"), { count: 3, mean: 2, median: 2 });
+  assert.deepEqual(ok("3 1 2"), { count: 3, mean: 2, median: 2, min: 1, max: 3 });
 });
 
 test("even count", () => {
-  assert.deepEqual(ok("1 2 3 10"), { count: 4, mean: 4, median: 2.5 });
+  assert.deepEqual(ok("1 2 3 10"), { count: 4, mean: 4, median: 2.5, min: 1, max: 10 });
 });
 
 test("signed, fractional and scientific numbers", () => {
-  assert.deepEqual(ok("-1.5 +2.5 .5 1e1"), { count: 4, mean: 2.875, median: 1.5 });
+  assert.deepEqual(ok("-1.5 +2.5 .5 1e1"), { count: 4, mean: 2.875, median: 1.5, min: -1.5, max: 10 });
 });
 
 test("large values stay finite", () => {
   const result = ok("1e308 1e308");
   assert.equal(result.mean, 1e308);
   assert.equal(result.median, 1e308);
+  assert.equal(result.min, 1e308);
+  assert.equal(result.max, 1e308);
 });
 
 const MAX = "1.7976931348623157e308";
@@ -56,6 +66,8 @@ test("three largest finite values stay finite", () => {
     count: 3,
     mean: Number.MAX_VALUE,
     median: Number.MAX_VALUE,
+    min: Number.MAX_VALUE,
+    max: Number.MAX_VALUE,
   });
 });
 
@@ -64,11 +76,19 @@ test("three most negative finite values stay finite", () => {
     count: 3,
     mean: -Number.MAX_VALUE,
     median: -Number.MAX_VALUE,
+    min: -Number.MAX_VALUE,
+    max: -Number.MAX_VALUE,
   });
 });
 
 test("largest finite values of both signs average to zero", () => {
-  assert.deepEqual(ok(`${MAX} ${MAX} -${MAX} -${MAX}`), { count: 4, mean: 0, median: 0 });
+  assert.deepEqual(ok(`${MAX} ${MAX} -${MAX} -${MAX}`), {
+    count: 4,
+    mean: 0,
+    median: 0,
+    min: -Number.MAX_VALUE,
+    max: Number.MAX_VALUE,
+  });
 });
 
 const invalid = [
