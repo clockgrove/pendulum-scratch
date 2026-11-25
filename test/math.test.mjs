@@ -34,6 +34,13 @@ test("mean", () => {
   assert.throws(() => mean([]), (err) => err instanceof RangeError && err.message.includes("empty"));
 });
 
+test("mean: exact values and message", () => {
+  assert.equal(mean([2, 4, 9]), 5);
+  assert.equal(mean([7]), 7);
+  assert.equal(mean([-3, 3]), 0);
+  assert.throws(() => mean([]), { name: "RangeError", message: "mean: values must not be empty" });
+});
+
 test("sum", () => {
   assert.equal(sum([1, 2, 3]), 6);
   assert.equal(sum([]), 0);

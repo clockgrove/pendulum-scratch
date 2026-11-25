@@ -25,13 +25,6 @@ import { clamp } from "./src/math.mjs";
 clamp(42, 0, 10); // 10
 ```
 
-It also exports `mean(values)`, which returns the arithmetic mean of an array of numbers. It throws a `RangeError` when `values` is empty.
-
-```js
-import { mean } from "./src/math.mjs";
-mean([2, 4, 6]); // 4
-```
-
 It also exports `sum(values)`, which returns the total of an array of numbers. It returns `0` when `values` is empty.
 
 ```js
@@ -72,6 +65,13 @@ It also exports `range(values)`, which returns the largest number in an array mi
 ```js
 import { range } from "./src/math.mjs";
 range([3, 9, 2]); // 7
+```
+
+It also exports `mean(values)`, which returns the arithmetic mean of an array of numbers. It throws a `RangeError` when `values` is empty.
+
+```js
+import { mean } from "./src/math.mjs";
+mean([2, 4, 9]); // 5
 ```
 
 It also exports `product(values)`, which returns the product of an array of numbers. It returns `1` when `values` is empty.
