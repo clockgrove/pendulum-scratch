@@ -1,5 +1,5 @@
 import { readFileSync } from "node:fs";
-import { mean, median } from "./math.mjs";
+import { max, mean, median, min } from "./math.mjs";
 
 const NUMBER = /^[+-]?(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?$/;
 
@@ -38,7 +38,7 @@ function compute(values) {
   if (!Number.isFinite(m) || !Number.isFinite(med)) {
     throw new Error("stats: result is not finite");
   }
-  return { count, mean: m, median: med };
+  return { count, mean: m, median: med, min: min(values), max: max(values) };
 }
 
 const USAGE = "Usage: node src/stats.mjs [--help] < numbers.txt\n";

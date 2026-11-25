@@ -132,11 +132,11 @@ lcm(4, 6); // 12
 
 ## Stats command
 
-`node src/stats.mjs` reads numbers from standard input and prints one JSON object with their `count`, `mean` and `median`.
+`node src/stats.mjs` reads numbers from standard input and prints one JSON object with their `count`, `mean`, `median`, `min` and `max`.
 
 ```sh
 printf '9\n-1 3 5\n' | node src/stats.mjs
-# {"count":4,"mean":4,"median":4}
+# {"count":4,"mean":4,"median":4,"min":-1,"max":9}
 ```
 
 `node src/stats.mjs --help` prints a usage line on standard output and exits with status 0 without reading standard input.
@@ -152,7 +152,7 @@ Large finite values are handled even when their sum would overflow:
 
 ```sh
 printf '1.7976931348623157e308 1.7976931348623157e308 1.7976931348623157e308\n' | node src/stats.mjs
-# {"count":3,"mean":1.7976931348623157e+308,"median":1.7976931348623157e+308}
+# {"count":3,"mean":1.7976931348623157e+308,"median":1.7976931348623157e+308,"min":1.7976931348623157e+308,"max":1.7976931348623157e+308}
 ```
 
 On invalid input the command prints one message on standard error, prints nothing on standard output, and exits with status 1. This covers empty or whitespace-only input, malformed numbers, values that are not finite (such as `1e999`), and results that are not finite.
