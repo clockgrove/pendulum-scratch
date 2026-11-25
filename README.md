@@ -151,6 +151,13 @@ import { isPrime } from "./src/math.mjs";
 isPrime(13); // true
 ```
 
+It also exports `digitSum(n)`, which returns the sum of the decimal digits of the integer `n`, ignoring its sign. It throws a `TypeError` when `n` is not an integer.
+
+```js
+import { digitSum } from "./src/math.mjs";
+digitSum(1234); // 10
+```
+
 ## Stats command
 
 `node src/stats.mjs` reads numbers from standard input and prints one JSON object with their `count`, `mean`, `median`, `min` and `max`.

@@ -166,3 +166,16 @@ export function isPrime(n) {
   }
   return true;
 }
+
+export function digitSum(n) {
+  if (!Number.isInteger(n)) {
+    throw new TypeError("digitSum: n must be an integer");
+  }
+  let x = Math.abs(n);
+  let total = 0;
+  while (x > 0) {
+    total += x % 10;
+    x = Math.floor(x / 10);
+  }
+  return total;
+}
