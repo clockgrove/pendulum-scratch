@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { abs, add, clamp, cube, digitSum, factorial, gcd, isEven, isOdd, isPrime, lcm, lerp, max, mean, median, min, multiply, product, range, sign, square, subtract, sum } from "../src/math.mjs";
+import { abs, add, clamp, cube, digitSum, factorial, fibonacci, gcd, isEven, isOdd, isPrime, lcm, lerp, max, mean, median, min, multiply, product, range, sign, square, subtract, sum } from "../src/math.mjs";
 
 test("add", () => {
   assert.equal(add(2, 3), 5);
@@ -190,4 +190,14 @@ test("digitSum", () => {
   assert.equal(digitSum(1234), 10);
   assert.equal(digitSum(-56), 11);
   assert.throws(() => digitSum(1.5), { name: "TypeError", message: "digitSum: n must be an integer" });
+});
+
+test("fibonacci", () => {
+  assert.equal(fibonacci(0), 0);
+  assert.equal(fibonacci(1), 1);
+  assert.equal(fibonacci(2), 1);
+  assert.equal(fibonacci(10), 55);
+  assert.equal(fibonacci(20), 6765);
+  assert.throws(() => fibonacci(-1), { name: "RangeError", message: "fibonacci: n must be a non-negative integer" });
+  assert.throws(() => fibonacci(2.5), { name: "RangeError", message: "fibonacci: n must be a non-negative integer" });
 });
